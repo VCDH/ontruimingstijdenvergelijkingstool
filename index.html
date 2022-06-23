@@ -1,0 +1,120 @@
+<!--
+	ontruimingstijdenvergelijkingstool - vergelijk ontruimingstijden
+    Copyright (C) 2022 Gemeente Den Haag, Netherlands
+    Developed by Jasper Vries
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ontruimingstijdenvergelijkingstool</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="bundled/jquery-ui/jquery-ui.min.css">
+    <script src="bundled/jquery/jquery.min.js"></script>
+    <script src="bundled/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <h1>ontruimingstijdenvergelijkingstool v0.1</h1>
+
+    <div id="menu">
+        <button id="menu-new">Nieuw</button>
+        <button id="menu-open">Open bestand...</button>
+        <button id="menu-import-old">Importeer huidige pdump...</button>
+        <button id="menu-import-new">Importeer nieuwe ccol...</button>
+        <button id="menu-saveas">Opslaan als...</button>
+        <button id="menu-export">Exporteren naar csv...</button>
+        <button id="menu-help">Help...</button>
+    </div>
+    
+    <div id="fileinputdialog">
+        <p>Kies bestand van schijf of plak inhoud van tekstbestand in tekstvak.</p>
+        <input type="file" id="file" class="ui-button ui-widget ui-corner-all"><br>
+        <textarea id="input"></textarea>
+    </div>
+
+    <div id="meta">
+        <fieldset>
+            <legend>Algemene gegevens</legend>
+            <table>
+                <tr><td>Kruispuntnummer:</td><td colspan="3"><input type="text" id="meta_intersection"></td></tr>
+                <tr><td>Naam opsteller:</td><td><input type="text" id="meta_creator"></td><td>Datum:</td><td><input type="date" id="meta_date_create"></td></tr>
+                <tr><td>Naam controleur:</td><td><input type="text" id="meta_reviewer"></td><td>Datum:</td><td><input type="date" id="meta_date_review"></td></tr>
+                <tr><td>Type huidig:</td><td><span id="meta_old_type"></span></td><td>Bron huidig:</td><td><span id="meta_old_source"></span></td></tr>
+                <tr><td>Type nieuw:</td><td><span id="meta_new_type"></span></td><td>Bron nieuw:</td><td><span id="meta_new_source"></span></td></tr>
+            </table>
+        </fieldset>
+    </div>
+
+    <div id="output">
+        <table id="outputtable">
+            <thead>
+                <tr>
+                    <th>FC van</th><th>FC naar</th><th>Huidige waarde</th><th>Nieuwe waarde</th><th>Verschil</th><th>Opmerking opsteller</th><th>Opmerking controleur</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="loadingscreencontainer">
+        <div id="loadingscreenoverlay"></div>
+        <div id="loadingscreentext"><span>Laden...</span></div>
+    </div>
+
+    <div id="helpdialog">
+        <p>ontruimingstijdenvergelijkingstool is een programma om de ontruimingstijden uit een CCOL pdumpbestand te vergelijken met nieuw berekende ontruimingstijden uit OTTO. Grote verschillen worden door middel van kleuren inzichtelijk gemaakt en het is mogelijk om bij ieder verschil een toelichting op te nemen. Het resultaat inclusief opmerkingen kan worden bewaard in een bestand om later weer te kunnen inlezen.</p>
+
+        <h1>Snel aan de slag</h1>
+        <p>Lees eerst een pdump-bestand in via <i>Importeer oude pdump...</i> en daarna een CCOL-export uit OTTO via <i>Importeer nieuwe ccol...</i>. Er wordt een tabel samengesteld waarbij beide bestanden naast elkaar vergeleken worden. In de tabel worden rijen getoond met de signaalgroepen met hierachter de oude en nieuwe waarde. Daarnaast wordt het verschil aangegeven, waarbij grotere verschillen met kleur worden gemarkeerd. Geef bij alle gemarkeerde verschillen op wat hier de reden van is. Sla het resultaat op en stuur het bestand naar de controleur. De controleur kan het bestand weer openen en eventuele opmerkingen in de laatste kolom toevoegen. De controleur slaat het resultaat opnieuw op en stuurt dit terug naar de opsteller.</p>
+
+        <h1>Toelichting van de menuopties</h1>
+        <dl>
+            <dt>Nieuw</dt>
+            <dd>Wis alle invoer om opnieuw te kunnen beginnen. Alle niet-opgeslagen wijzigingen gaan verloren.</dd>
+            <dt>Open bestand...</dt>
+            <dd>Open een bestand dat is opgeslagen door pdumpvergelijken. Je hebt deze optie alleen nodig als je wilt verder gaan met een eerder opgeslagen vergelijking. Bij een nieuwe vergelijking gebruik je de importeer-functies.</dd>
+            <dt>Importeer huidige pdump...</dt>
+            <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de huidige situatie. Er kan een pdump-bestand worden geselecteerd dat is opgeslagen op de lokale schijf, of de inhoud van een pdump-bestand kan vanaf het klembord worden geplakt.</dd>
+            <dt>Importeer nieuwe ccol...</dt>
+            <dd>Importeer een ccol-bestand dat wordt aangemerkt als zijnde de nieuwe situatie. Als deze optie niet beschikbaar is, moet eerst een oud pdump-bestand worden ingelezen.</dd>
+            <dt>Opslaan als...</dt>
+            <dd>Sla de weergegeven resultaten op in een bestand, dat later kan worden ingelezen via <i>Open bestand...</i>. Het bestand wordt opgeslagen met een JSON-bestandsindeling en kan desgewenst ook in andere applicaties worden verwerkt die hiermee overweg kunnen.</dd>
+            <dt>Exporteren naar csv</dt>
+            <dd>Exporteer de resultaattabel naar CSV-formaat. De kleuren van de cellen worden niet ondersteund in CSV.</dd>
+        </dl>
+
+        <h1>Vraag-en-antwoord</h1>
+        <dl>
+            <dt>Wat gebeurt er als ik een pdump-bestand of ccol-bestand opnieuw inlees?</dt>
+            <dd>Wanneer een bestand opnieuw wordt ingelezen, dan worden de reeds ingelezen waarden overschreven. Eventuele opmerkingen blijven behouden, maar zijn logischerwijs mogelijk niet meer van toepassing op de nieuwe ingelezen waarde. <!--TODO--> Waarden van variabelen die niet meer voorkomen in het nieuw ingelezen pdump-bestand worden niet leeg gemaakt. Daardoor is het raadzaam om voorzichtig te zijn met het opnieuw inlezen van bestanden. Bij twijfel kan beter een volledig nieuwe vergelijking worden gemaakt.</dd>
+            <dt>Ik zie iets raars in de variabelen of hun waarden, hoe komt dit?</dt>
+            <dd>ontruimingstijdenvergelijkingstool doet zijn best om pdump-bestanden zo goed mogelijk in te lezen, ook wanneer er andere CCOL-uitvoer in het pdump-bestand aanwezig is. Als er rare zaken zichtbaar zijn, dan zitten er waarschijnlijk ook rare zaken in het pdump-bestand. Controleer de inhoud van het pdump-bestand met een plain text editor en schoon dit zo nodig eerst op.</dd>
+            <dt>Kan ik een tab.c inlezen in plaats van een pdump?</dt>
+            <dd>Ondanks dat de menuoptie anders doet vermoeden, kan dit. Hou er rekening mee dat de actuele ontruimingstijden op straat mogelijk niet overeen komen met de waarden uit tab.c. Controleer dit en pas ze aan in een kopie van het tab.c bestand voordat je het importeert.</dd>
+            <dt>Hoe wordt omgegaan met intergroentijden?</dt>
+            <dd>Er wordt automatisch gedetecteerd of er ontruimingstijden of intergroentijden worden ingelezen. Wanneer sprake is van intergroentijden, worden ook de geeltijden ingelezen. De geeltijden worden van de intergroentijden afgetrokken alvorens het verschil wordt berekend.</dd>
+        </dl>
+        <p><a href="https://github.com/VCDH/ontruimingstijdenvergelijkingstool/">Broncode op GitHub</a></p>
+    </div>
+
+    <script src="gui.js"></script>
+    <script src="filehandling.js"></script>
+    <script src="tool.js"></script>
+</body>
+</html>

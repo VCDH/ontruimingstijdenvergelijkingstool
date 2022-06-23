@@ -1,0 +1,80 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+textarea {
+    width: 800px;
+    height: 400px;
+}
+
+button {
+    margin-top: 1em;
+}
+
+#outputtable {
+    border-collapse: collapse;
+    margin: 4px auto;
+    
+}
+#outputtable thead th {
+    border: 1px solid #CCC;
+    border-top: none;
+    padding: 0 2px;
+    font-weight: bold;
+    text-align: left;
+}
+#outputtable tbody td {
+    border: 1px solid #CCC;
+    padding: 0 2px;
+}
+#outputtable td:nth-child(6), #outputtable td:nth-child(7) {
+    min-width: 300px;
+}
+#outputtable tbody td input {
+    width: calc(100% - 9px);
+}
+
+/* kleuren voor verschilcellen */
+td.diff-20 {
+    background-color: lightcoral;
+}
+td.diff-10 {
+    background-color: lightyellow;
+}
+
+#loadingscreencontainer {
+    position: absolute;
+    z-index: 85;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+#loadingscreenoverlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #FFF;
+    opacity: 0.5;
+}
+#loadingscreentext {
+    position: absolute;
+	left: 0;
+	bottom: 50%;
+	width: 100%;
+	text-align: center;
+    opacity: 1;
+}
+#loadingscreentext span {
+    background-color: rgba(0, 0, 0, 0.4);
+	padding: 4px;
+	border-radius: 4px;
+}
+
+dt {
+    font-weight: bold;
+}
