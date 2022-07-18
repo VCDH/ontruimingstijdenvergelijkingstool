@@ -70,6 +70,7 @@ $(function() {
     $('#menu-saveas').button();
     $('#menu-export').button();
     $('#menu-help').button();
+    $('#menu-hide-specialk').checkboxradio();
     setFirstRun();
     /*
     * button onclick handles
@@ -98,6 +99,9 @@ $(function() {
     });
     $('#menu-help').click(function() {
         openHelpDialog();
+    });
+    $('#menu-hide-specialk').click(function() {
+        showhideSpecialKRows();
     });
     /*
     * meta onchange handlers

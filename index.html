@@ -61,6 +61,8 @@
     <div id="submenu">
         <button id="menu-import-old">Importeer huidige pdump...</button>
         <button id="menu-import-new">Importeer nieuwe ccol...</button>
+        <input type="checkbox" name="menu-hide-specialk" id="menu-hide-specialk">
+        <label for="menu-hide-specialk">Verberg FK/GK/EKL</label>
     </div>
 
     <div id="output">
@@ -102,10 +104,8 @@
             <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de huidige situatie. Er kan een pdump-bestand worden geselecteerd dat is opgeslagen op de lokale schijf, of de inhoud van een pdump-bestand kan vanaf het klembord worden geplakt.</dd>
             <dt>Importeer nieuwe ccol...</dt>
             <dd>Importeer een ccol-bestand dat wordt aangemerkt als zijnde de nieuwe situatie. Als deze optie niet beschikbaar is, moet eerst een oud pdump-bestand worden ingelezen.</dd>
-            <dt>Opslaan als...</dt>
-            <dd>Sla de weergegeven resultaten op in een bestand, dat later kan worden ingelezen via <i>Open bestand...</i>. Het bestand wordt opgeslagen met een JSON-bestandsindeling en kan desgewenst ook in andere applicaties worden verwerkt die hiermee overweg kunnen.</dd>
-            <dt>Exporteren naar csv</dt>
-            <dd>Exporteer de resultaattabel naar CSV-formaat. De kleuren van de cellen worden niet ondersteund in CSV.</dd>
+            <dt>Verberg FK/GK/EKL</dt>
+            <dd>Verberg rijen met waarden -1/-2/-3. Rijen worden alleen verborgen als zowel de huidige en nieuwe waarde gelijk zijn aan -1, -2, -3 of geen waarde</dd>
         </dl>
 
         <h1>Vraag-en-antwoord</h1>
@@ -118,6 +118,8 @@
             <dd>Ondanks dat de menuoptie anders doet vermoeden, kan dit. Hou er rekening mee dat de actuele ontruimingstijden op straat mogelijk niet overeen komen met de waarden uit tab.c. Controleer dit en pas ze aan in een kopie van het tab.c bestand voordat je het importeert.</dd>
             <dt>Hoe wordt omgegaan met intergroentijden?</dt>
             <dd>Er wordt automatisch gedetecteerd of er ontruimingstijden of intergroentijden worden ingelezen. Wanneer sprake is van intergroentijden, worden ook de geeltijden ingelezen. De geeltijden worden van de intergroentijden afgetrokken alvorens het verschil wordt berekend.</dd>
+            <dt>Hoe kan ik negatieve ontruimingstijden vergelijken</dt>
+            <dd>Negatieve ontruimingstijden (of negatieve intergroentijden) zijn niet aanwezig in een pdump en kunnen niet worden ge&euml;xporteerd door OTTO. Deze kunnen dus niet eenvoudig vergeleken worden. Raadpleeg bij twijfel de oude en nieuwe OTTO. Uiteindelijk gaat de vergelijking om een merkbaar in verschil in werking op straat te duiden, waardoor het in de meeste gevallen niet nodig zal zijn om negatieve ontruimingstijden te vergelijken. Op straat zijn immers geen negatieve ontruimingstijden actief.</dd>
         </dl>
         <p><a href="https://github.com/VCDH/ontruimingstijdenvergelijkingstool/">Broncode op GitHub</a></p>
     </div>

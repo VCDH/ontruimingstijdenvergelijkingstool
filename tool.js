@@ -214,7 +214,32 @@ function toHtmlTable() {
         }
         //schrijf rij
         $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td>' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
+        showhideSpecialKRows();
     };
+}
+
+/*
+* verberg FK/GK/EKL conflicten
+*/
+function showhideSpecialKRows() {
+    let val = $('#menu-hide-specialk').prop('checked');
+    //rows must be hidden
+    if (val == true) {
+        $('#outputtable tbody > tr').each(function(index, tr) {
+            //get values
+            let oldval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(2)').html();
+            let newval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(3)').html();
+            
+            //check if there is a difference and mark it
+            if (((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3'))) {
+                $('#outputtable tbody tr:eq(' + (index) + ')').hide();
+            }
+        });
+    }
+    //rows must be shown
+    else {
+        $('#outputtable tbody tr').show();
+    }
 }
 
 /*
