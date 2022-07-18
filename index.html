@@ -29,15 +29,13 @@
 </head>
 
 <body>
-    <h1>ontruimingstijdenvergelijkingstool v0.1</h1>
+    <h1>ontruimingstijdenvergelijkingstool</h1>
 
     <div id="menu">
         <button id="menu-new">Nieuw</button>
         <button id="menu-open">Open bestand...</button>
-        <button id="menu-import-old">Importeer huidige pdump...</button>
-        <button id="menu-import-new">Importeer nieuwe ccol...</button>
-        <button id="menu-saveas">Opslaan als...</button>
-        <button id="menu-export">Exporteren naar csv...</button>
+        <button id="menu-saveas">Download als bestand</button>
+        <button id="menu-export">Exporteren naar csv</button>
         <button id="menu-help">Help...</button>
     </div>
     
@@ -58,6 +56,11 @@
                 <tr><td>Type nieuw:</td><td><span id="meta_new_type"></span></td><td>Bron nieuw:</td><td><span id="meta_new_source"></span></td></tr>
             </table>
         </fieldset>
+    </div>
+
+    <div id="submenu">
+        <button id="menu-import-old">Importeer huidige pdump...</button>
+        <button id="menu-import-new">Importeer nieuwe ccol...</button>
     </div>
 
     <div id="output">
@@ -89,6 +92,12 @@
             <dd>Wis alle invoer om opnieuw te kunnen beginnen. Alle niet-opgeslagen wijzigingen gaan verloren.</dd>
             <dt>Open bestand...</dt>
             <dd>Open een bestand dat is opgeslagen door pdumpvergelijken. Je hebt deze optie alleen nodig als je wilt verder gaan met een eerder opgeslagen vergelijking. Bij een nieuwe vergelijking gebruik je de importeer-functies.</dd>
+            <dt>Download als bestand</dt>
+            <dd>Sla de weergegeven resultaten op in een bestand, dat later kan worden ingelezen via <i>Open bestand...</i>. Het bestand wordt opgeslagen met een JSON-bestandsindeling en kan desgewenst ook in andere applicaties worden verwerkt die hiermee overweg kunnen. Afhankelijk van je browserinstellingen wordt het bestand meteen gedownload of krijg je de vraag waar je het wil bewaren.</dd>
+            <dt>Exporteren naar csv</dt>
+            <dd>Exporteer de resultaattabel naar CSV-formaat. De kleuren van de cellen worden niet ondersteund in CSV.</dd>
+        </dl>
+        <dl>
             <dt>Importeer huidige pdump...</dt>
             <dd>Importeer een pdump-bestand dat wordt aangemerkt als zijnde de huidige situatie. Er kan een pdump-bestand worden geselecteerd dat is opgeslagen op de lokale schijf, of de inhoud van een pdump-bestand kan vanaf het klembord worden geplakt.</dd>
             <dt>Importeer nieuwe ccol...</dt>
