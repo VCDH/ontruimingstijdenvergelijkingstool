@@ -78,6 +78,7 @@ $(function() {
     $('#menu-new').click(function() {
         let prompt = confirm('Alle ingeladen informatie en toegevoegde opmerkingen worden gewist. Doorgaan?');
         if (prompt == true) {
+            clearBackup();
             newButtonClickHandle();
             setFirstRun();
         }
@@ -189,7 +190,8 @@ function loadFileContentsHandle(variant) {
 
 function saveAsButtonClickHandle() {
     let filename = ((typeof table.m.intersection !== 'undefined') ? table.m.intersection : '') + '_ontruimingstijdenvergelijking_' + getCurrentYyyymmdd() + '.json';
-    download_file(JSON.stringify(table), filename)
+    download_file(JSON.stringify(table), filename);
+    clearBackup();
 }
 
 function exportButtonClickHandle() {

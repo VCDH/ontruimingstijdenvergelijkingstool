@@ -192,6 +192,7 @@ function read_file(variant, file) {
     }
     toHtmlTable();
     updateMetaDisplay();
+    saveBackup();
 }
 
 /*
@@ -272,6 +273,7 @@ function saveMetaToTable() {
     table.m.reviewer = $('#meta_reviewer').val();
     table.m.date_create = $('#meta_date_create').val();
     table.m.date_review = $('#meta_date_review').val();
+    saveBackup();
 }
 
 /*
@@ -310,6 +312,7 @@ $(function() {
                     }
                     //remove input
                     $(e.target).parent().text($(e.target).val());
+                    saveBackup();
                 }
             });
         }
@@ -322,7 +325,7 @@ $(function() {
  /*
  * load saved file
  */
- function loadSavedFile (json) {
+ function loadSavedFile(json) {
     //clear table
     newButtonClickHandle();
     //import

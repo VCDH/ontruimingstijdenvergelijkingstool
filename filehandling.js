@@ -27,6 +27,9 @@ function setFirstRun(state = true) {
     $('#menu-new').button('option', 'disabled', state);
     $('#menu-import-new').button('option', 'disabled', state);
     $('#menu-saveas').button('option', 'disabled', state);
+    if (state == true) {
+        readBackup();
+    }
     firstrun = state;
 }
 
@@ -78,3 +81,31 @@ function escapeCsvString(str) {
     return str;
 }
 
+/*
+* backup opslaan in localstorage
+*/
+function saveBackup() {
+    localStorage.setItem('table', JSON.stringify(table));
+}
+
+/*
+* backup lezen uit localstorage
+*/
+function readBackup() {
+    let json =  localStorage.getItem('table');
+    //check if not empty
+    if (json != null) {
+        let prompt = confirm('Er is niet-opgeslagen informatie uit een eerdere sessie aangetroffen. Wil je deze opnieuw inladen?');
+        if (prompt == true) {
+            loadSavedFile(json);
+            setFirstRun(false);
+        }
+    }
+}
+
+/*
+* localstorage leegmaken
+*/
+function clearBackup() {
+    localStorage.removeItem('table');
+}
