@@ -219,7 +219,7 @@ function toHtmlTable() {
 }
 
 /*
-* verberg FK/GK/EKL conflicten
+* verberg NK/FK/GK/GKL conflicten
 */
 function showhideSpecialKRows() {
     let val = $('#menu-hide-specialk').prop('checked');
@@ -230,8 +230,8 @@ function showhideSpecialKRows() {
             let oldval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(2)').html();
             let newval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(3)').html();
             
-            //check if there is a difference and mark it
-            if (((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3'))) {
+            //check if there is a specific value combination and hide it
+            if (((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3') || (oldval == '-4')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3') || (newval == '-4'))) {
                 $('#outputtable tbody tr:eq(' + (index) + ')').hide();
             }
         });
