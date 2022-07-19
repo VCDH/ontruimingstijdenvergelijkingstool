@@ -214,7 +214,7 @@ function toHtmlTable() {
             }
         }
         //schrijf rij
-        $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td>' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
+        $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td contenteditable>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td contenteditable tabindex="10000">' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
         showhideSpecialKRows();
     };
 }
@@ -284,42 +284,31 @@ $(function() {
     * editable comment field
     */
     function editableCommentField(e) {
-        //check if there is an input and if not add it
-        if (!$(e.target).children('input').length) {
-            //add input
-            $(e.target).html('<input type="text" value="' + $(e.target).text() + '">');
-            $('#outputtable tbody').on('blur', 'input', function(e) {
-                //for some reason this is called twice
-                if ($(e.target).parents('tr').index() >= 0) {
-                    //decide column
-                    let col;
-                    switch ($(e.target).parents('td').index()) {
-                        case 5:
-                            col = 'comment_creator';
-                            break;
-                        case 6:
-                            col = 'comment_reviewer';
-                            break;
-                    }
-                    //update table
-                    if ($(e.target).val().length > 0) {
-                        //insert new value
-                        table.t[($(e.target).parents('tr').index())][col] = $(e.target).val();
-                    }
-                    else {
-                        //remove property from object if empty, as to not have empty values in the output
-                        delete table.t[($(e.target).parents('tr').index())][col];
-                    }
-                    //remove input
-                    $(e.target).parent().text($(e.target).val());
-                    saveBackup();
-                }
-            });
+        //for some reason this is called twice
+        if ($(e.target).parents('tr').index() >= 0) {
+            //decide column
+            let col;
+            switch ($(e.target).index()) {
+                case 5:
+                    col = 'comment_creator';
+                    break;
+                case 6:
+                    col = 'comment_reviewer';
+                    break;
+            }
+            //update table
+            if ($(e.target).text().length > 0) {
+                //insert new value
+                table.t[($(e.target).parents('tr').index())][col] = $(e.target).text();
+            }
+            else {
+                //remove property from object if empty, as to not have empty values in the output
+                delete table.t[($(e.target).parents('tr').index())][col];
+            }
+            saveBackup();
         }
-        //set focus
-        $(e.target).children('input').focus();
     }
-    $('#outputtable tbody').on('click', 'td:nth-child(n+6)', editableCommentField);
+    $('#outputtable tbody').on('blur', 'td:nth-child(n+6)', editableCommentField);
 });
 
  /*
