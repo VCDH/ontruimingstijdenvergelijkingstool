@@ -309,6 +309,35 @@ $(function() {
         }
     }
     $('#outputtable tbody').on('blur', 'td:nth-child(n+6)', editableCommentField);
+    //autocomplete
+    $('#outputtable tbody td:nth-child(6)').autocomplete({
+        delay: 0,
+        minLength: 0,
+        source: [
+            'bus voorheen niet meegenomen', 
+            'intergroen', 
+            'nieuwe berekenwijze tram',
+            'nieuwe signaalgroep', 
+            'rijbaan grotere breedte',
+            'rijbaan kleinere breedte',
+            'rijlijn voorheen niet goed ingetekend',
+            'stopstreep fcxx dichter op kruispunt',
+            'stopstreep fcxx verder van kruispunt',
+            'was constante snelheid ipv versnelling'
+        ]
+    }).on('focus', function () {
+        $(this).autocomplete('search', '');
+    });;
+    $('#outputtable tbody td:nth-child(7)').autocomplete({
+        delay: 0,
+        minLength: 0,
+        source: [
+            'ok', 
+            'redenering onjuist: '
+        ]
+    }).on('focus', function () {
+        $(this).autocomplete('search', '');
+    });
 });
 
  /*
