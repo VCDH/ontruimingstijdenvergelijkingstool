@@ -73,7 +73,7 @@ function read_file(variant, file) {
                         filetype_named = 'OTTO';
                         //zet kruispunt naam
                         if ($('#meta_intersection').val().length == 0) {
-                            $('#meta_intersection').val(ottomatch[1]);
+                            table.m.intersection = ottomatch[1];
                         }
                         break;
                     }
@@ -295,7 +295,11 @@ function updateMetaDisplay() {
             $('#meta_new_source').html(table.m.new.source);
         }
     }
+    if (typeof table.m.intersection !== 'undefined') {
+        $('#meta_intersection').val(table.m.intersection);
+    }
 }
+
 /*
 * zet algemene gegevens in tabel
 */
@@ -341,34 +345,40 @@ $(function() {
         }
     }
     $('#outputtable tbody').on('blur', 'td:nth-child(n+6)', editableCommentField);
-    //autocomplete
-    $('#outputtable tbody td:nth-child(6)').autocomplete({
-        delay: 0,
-        minLength: 0,
-        source: [
-            'bus voorheen niet meegenomen', 
-            'intergroen', 
-            'nieuwe berekenwijze tram',
-            'nieuwe signaalgroep', 
-            'rijbaan grotere breedte',
-            'rijbaan kleinere breedte',
-            'rijlijn voorheen niet goed ingetekend',
-            'stopstreep fcxx dichter op kruispunt',
-            'stopstreep fcxx verder van kruispunt',
-            'was constante snelheid ipv versnelling'
-        ]
-    }).on('focus', function () {
-        $(this).autocomplete('search', '');
-    });;
-    $('#outputtable tbody td:nth-child(7)').autocomplete({
-        delay: 0,
-        minLength: 0,
-        source: [
-            'ok', 
-            'redenering onjuist: '
-        ]
-    }).on('focus', function () {
-        $(this).autocomplete('search', '');
+    /*
+    * autocomplete
+    */
+    $('#outputtable tbody').on('focus', 'td:nth-child(6)', function() {
+        $(this).autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: [
+                'bus voorheen niet meegenomen', 
+                'intergroen', 
+                'nieuwe berekenwijze tram',
+                'nieuwe signaalgroep', 
+                'rijbaan grotere breedte',
+                'rijbaan kleinere breedte',
+                'rijlijn voorheen niet goed ingetekend',
+                'stopstreep fcxx dichter op kruispunt',
+                'stopstreep fcxx verder van kruispunt',
+                'was constante snelheid ipv versnelling'
+            ]
+        }).on('focus', function () {
+            $(this).autocomplete('search', '');
+        });
+    });
+    $('#outputtable tbody').on('focus', 'td:nth-child(7)', function() {
+        $(this).autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: [
+                'ok', 
+                'redenering onjuist: '
+            ]
+        }).on('focus', function () {
+            $(this).autocomplete('search', '');
+        });
     });
 });
 
