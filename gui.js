@@ -114,6 +114,10 @@ $(function() {
     $('#meta').on('change', 'input', function() {
         saveMetaToTable();
     });
+    /*
+    * default values
+    */
+   $('#meta_date_create').val(getCurrentYyyymmdd('-'));
     //hide loading screen
     setLoadingScreen(null);
 });
@@ -210,7 +214,7 @@ function newButtonClickHandle() {
     $('#outputtable tbody').html('');
 }
 
-function getCurrentYyyymmdd() {
+function getCurrentYyyymmdd(separator='') {
     let date = new Date();
-    return String(date.getFullYear()) + String(date.getMonth()+1).padStart(2, '0') + '' + String(date.getDate()).padStart(2, '0');
+    return String(date.getFullYear()) + separator + String(date.getMonth()+1).padStart(2, '0') + separator + '' + String(date.getDate()).padStart(2, '0');
 }
