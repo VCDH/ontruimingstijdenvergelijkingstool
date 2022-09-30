@@ -126,7 +126,7 @@ function openImportDialog(type) {
     active_type = type;
     var title;
     if (type == 'open') {
-        title = 'Open opgeslagen json-bestand';
+        title = 'Open opgeslagen json bestand';
     }
     else if (type == 'old') {
         title = 'Importeer huidig pdump bestand';
