@@ -123,7 +123,7 @@ function read_file(variant, file) {
             for (let row of table.g) {
                 if ((row.fc == item[1])) {
                     //werk array bij
-                    row[variant] = item[2];
+                    row[variant] = parseInt(item[2]);
                     //voorkom dubbele vermelding
                     rowupdated = true;
                     break;
@@ -135,7 +135,7 @@ function read_file(variant, file) {
                 table.g.push({
                     //id: table.g.length,
                     fc: item[1],
-                    [variant]: item[2]
+                    [variant]: parseInt(item[2])
                 });
             }
         });
@@ -153,28 +153,27 @@ function read_file(variant, file) {
             if ((row.fca == item[2])
             && (row.fcb == item[3])) {
                 //werk array bij
-                row[variant] = item[4];
+                row[variant] = parseInt(item[4]);
                 //bereken verschil
-                let diff = null;
                 if ((typeof row.old !== 'undefined') && (typeof row.new !== 'undefined') && (row.old >= 0) && (row.new >= 0)) {
-                    //bereken verschil
-                    diff = row.new - row.old;
                     //trek geeltijden af voor intergroen
-                    let tgl = 0;
+                    let tgl_old = 0;
+                    let tgl_new = 0;
                     for (let r of table.g) {
                         if ((r.fc == row.fca)) {
                             //oude waarde
                             if ((typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG')) {
-                                tgl = tgl + r.old;
+                                tgl_old = r.old;
                             }
                             //nieuwe waarde
                             if ((typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG')) {
-                                tgl = tgl + r.new;
+                                tgl_new = r.new;
                             }
                             break;
                         }
                     };
-                    row.diff = diff - tgl;
+                    //bereken verschil
+                    row.diff = (row.new - tgl_new) - (row.old - tgl_old);
                 }
                 else if (typeof row.diff !== 'undefined') {
                     //verwijder verschil
@@ -192,7 +191,7 @@ function read_file(variant, file) {
                 //id: table.t.length,
                 fca: item[2],
                 fcb: item[3],
-                [variant]: item[4]
+                [variant]: parseInt(item[4])
             });
             //bij een nieuwe rij kunnen er nooit zowel een oude als nieuwe waarde zijn, dus hoeft geen verschil berekend te worden
         }
@@ -388,9 +387,9 @@ $(function() {
             table.t.push({
                 fca: item.fca,
                 fcb: item.fcb,
-                ...(typeof item.old !== 'undefined') && {old: item.old},
-                ...(typeof item.new !== 'undefined') && {new: item.new},
-                ...(typeof item.diff !== 'undefined') && {diff: item.diff},
+                ...(typeof item.old !== 'undefined') && {old: parseInt(item.old)},
+                ...(typeof item.new !== 'undefined') && {new: parseInt(item.new)},
+                ...(typeof item.diff !== 'undefined') && {diff: parseInt(item.diff)},
                 ...(typeof item.comment_creator !== 'undefined') && {comment_creator: item.comment_creator},
                 ...(typeof item.comment_reviewer !== 'undefined') && {comment_reviewer: item.comment_reviewer}
             });
@@ -402,8 +401,8 @@ $(function() {
                 //append array
                 table.g.push({
                     fc: item.fc,
-                    ...(typeof item.old !== 'undefined') && {old: item.old},
-                    ...(typeof item.new !== 'undefined') && {new: item.new}
+                    ...(typeof item.old !== 'undefined') && {old: parseInt(item.old)},
+                    ...(typeof item.new !== 'undefined') && {new: parseInt(item.new)}
                 });
             });
         }
