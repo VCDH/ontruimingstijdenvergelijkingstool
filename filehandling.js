@@ -55,6 +55,8 @@ function open_file(event) {
         document.getElementById('input').value = contents;
     };
     filereader.readAsText(file);
+    //clear file name
+    $('#file').val('');
 }
 
 /*
