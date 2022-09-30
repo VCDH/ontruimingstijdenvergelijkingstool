@@ -58,7 +58,10 @@ $(function() {
         ],
         title: 'Help',
         width: Math.min(800, window.innerWidth),
-        maxHeight: window.innerHeight
+        maxHeight: window.innerHeight,
+        open: function() {
+            $('.ui-dialog-content').scrollTop(0); //fix dialog scrolling down
+        }
     });
     /*
     * init buttons
