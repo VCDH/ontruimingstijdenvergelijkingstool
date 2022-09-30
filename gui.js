@@ -114,10 +114,6 @@ $(function() {
     $('#meta').on('change', 'input', function() {
         saveMetaToTable();
     });
-    /*
-    * default values
-    */
-   $('#meta_date_create').val(getCurrentYyyymmdd('-'));
     //hide loading screen
     setLoadingScreen(null);
 });

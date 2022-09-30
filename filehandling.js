@@ -31,6 +31,10 @@ function setFirstRun(state = true) {
         readBackup();
     }
     firstrun = state;
+    /*
+    * default values
+    */
+   $('#meta_date_create').val(getCurrentYyyymmdd('-'));
 }
 
 /*
