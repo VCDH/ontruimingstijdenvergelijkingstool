@@ -62,10 +62,28 @@ function read_file(variant, file) {
         if (match =file.match(matchstr)) {
             switch (index) {
                 case 0:
-                    filetype_named = 'pdump';
+                    filetype_named = 'PDUMP';
                     break;
                 case 1:
-                    filetype_named = 'ccol';
+                    filetype_named = 'CCOL';
+                    //uitvinden of het OTTO is
+                    let ottotest = /\/\* Kruispunt naam:\s+(.*?)\s*\*\//;
+                    let ottomatch = file.match(ottotest);
+                    if (ottomatch) {
+                        filetype_named = 'OTTO';
+                        //zet kruispunt naam
+                        if ($('#meta_intersection').val().length == 0) {
+                            $('#meta_intersection').val(ottomatch[1]);
+                        }
+                        break;
+                    }
+                    //uitvinden of het tab.c is
+                    let tabctest = /tab\.c/;
+                    let tabcmatch = file.match(tabctest);
+                    if (tabcmatch) {
+                        filetype_named = 'TAB.C';
+                        break;
+                    }
                     break;
             }
             filetype = index;
@@ -74,7 +92,7 @@ function read_file(variant, file) {
     });
     //waarschuwing bij inlezen tab.c voor oude waarden
     if ((filetype == 1) && (variant == 'old')) {
-        alert('Je hebt mogelijk een tab.c ingelezen in plaats van een pdump. Lees een pdump in of controleer of de waarden overeen komen met de huidige waarden op straat!');
+        alert('Je hebt mogelijk een tab.c ingelezen in plaats van een pdump. Lees bij voorkeur een pdump van de straatapplicatie in of controleer of de waarden overeen komen met de actuele ontruimingstijdens op straat.');
     }
     //zet type en filetype in meta
     if (typeof table.m[variant] === 'undefined') {
