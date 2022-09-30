@@ -215,29 +215,44 @@ function toHtmlTable() {
         }
         //schrijf rij
         $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td contenteditable>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td contenteditable tabindex="10000">' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
-        showhideSpecialKRows();
+        showhideRows();
     };
 }
 
 /*
 * verberg NK/FK/GK/GKL conflicten
+* verberg rijen met kleine verschillen
 */
-function showhideSpecialKRows() {
-    let val = $('#menu-hide-specialk').prop('checked');
-    //rows must be hidden
-    if (val == true) {
+function showhideRows() {
+    let specialk = $('#menu-hide-specialk').prop('checked');
+    let smalldiff = $('#menu-hide-smalldiff').prop('checked');
+    //some rows must be hidden
+    if ((specialk == true) || (smalldiff == true)) {
         $('#outputtable tbody > tr').each(function(index, tr) {
             //get values
-            let oldval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(2)').html();
-            let newval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(3)').html();
-            
+            let oldval;
+            let newval;
+            let diff;
+            if (specialk == true) {
+                oldval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(2)').html();
+                newval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(3)').html();
+            }
+            if (smalldiff == true) {
+                diff = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(4)').html();
+            }
             //check if there is a specific value combination and hide it
-            if (((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3') || (oldval == '-4')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3') || (newval == '-4'))) {
+            if ((specialk == true) && ((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3') || (oldval == '-4')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3') || (newval == '-4'))) {
                 $('#outputtable tbody tr:eq(' + (index) + ')').hide();
+            }
+            else if ((smalldiff == true) && (diff != '') && (Math.abs(diff) < 10)) {
+                $('#outputtable tbody tr:eq(' + (index) + ')').hide();
+            }
+            else {
+                $('#outputtable tbody tr:eq(' + (index) + ')').show();
             }
         });
     }
-    //rows must be shown
+    //all rows must be shown
     else {
         $('#outputtable tbody tr').show();
     }

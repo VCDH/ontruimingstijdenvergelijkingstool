@@ -71,6 +71,7 @@ $(function() {
     $('#menu-export').button();
     $('#menu-help').button();
     $('#menu-hide-specialk').checkboxradio();
+    $('#menu-hide-smalldiff').checkboxradio();
     setFirstRun();
     /*
     * button onclick handles
@@ -102,7 +103,10 @@ $(function() {
         openHelpDialog();
     });
     $('#menu-hide-specialk').click(function() {
-        showhideSpecialKRows();
+        showhideRows();
+    });
+    $('#menu-hide-smalldiff').click(function() {
+        showhideRows();
     });
     /*
     * meta onchange handlers

@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <h1>ontruimingstijdenvergelijkingstool v0.2</h1>
+    <h1>ontruimingstijdenvergelijkingstool</h1>
 
     <div id="menu">
         <button id="menu-new">Nieuw</button>
@@ -63,6 +63,8 @@
         <button id="menu-import-new">Importeer nieuwe ccol...</button>
         <input type="checkbox" name="menu-hide-specialk" id="menu-hide-specialk">
         <label for="menu-hide-specialk">Verberg NK/FK/GK/GKL</label>
+        <input type="checkbox" name="menu-hide-smalldiff" id="menu-hide-smalldiff">
+        <label for="menu-hide-smalldiff">Verberg kleine verschillen</label>
     </div>
 
     <div id="output">
@@ -106,6 +108,8 @@
             <dd>Importeer een ccol-bestand dat wordt aangemerkt als zijnde de nieuwe situatie. Als deze optie niet beschikbaar is, moet eerst een oud pdump-bestand worden ingelezen.</dd>
             <dt>Verberg NK/FK/GK/GKL</dt>
             <dd>Verberg rijen met waarden -1/-2/-3/-4. Rijen worden alleen verborgen als zowel de huidige en nieuwe waarde gelijk zijn aan -1, -2, -3, -4 of geen waarde</dd>
+            <dt>Verberg kleine verschillen</dt>
+            <dd>Verberg rijen waarbij het absolute verschil tussen de huidige en nieuwe waarde kleiner is dan 10te.</dd>
         </dl>
 
         <h1>Opmerkingen invoeren</h1>
