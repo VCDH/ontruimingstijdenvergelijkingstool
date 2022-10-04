@@ -242,9 +242,10 @@ function toHtmlTable() {
 */
 function showhideRows() {
     let specialk = $('#menu-hide-specialk').prop('checked');
+    let zerodiff = $('#menu-hide-zerodiff').prop('checked');
     let smalldiff = $('#menu-hide-smalldiff').prop('checked');
     //some rows must be hidden
-    if ((specialk == true) || (smalldiff == true)) {
+    if ((specialk == true) || (zerodiff == true) || (smalldiff == true)) {
         $('#outputtable tbody > tr').each(function(index, tr) {
             //get values
             let oldval;
@@ -254,11 +255,14 @@ function showhideRows() {
                 oldval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(2)').html();
                 newval = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(3)').html();
             }
-            if (smalldiff == true) {
+            if ((smalldiff == true) || (zerodiff == true)) {
                 diff = $('#outputtable tbody tr:eq(' + (index) + ') td:eq(4)').html();
             }
             //check if there is a specific value combination and hide it
             if ((specialk == true) && ((oldval == '') || (oldval == '-1') || (oldval == '-2') || (oldval == '-3') || (oldval == '-4')) && ((newval == '') || (newval == '-1') || (newval == '-2') || (newval == '-3') || (newval == '-4'))) {
+                $('#outputtable tbody tr:eq(' + (index) + ')').hide();
+            }
+            else if ((zerodiff == true) && (diff == '0')) {
                 $('#outputtable tbody tr:eq(' + (index) + ')').hide();
             }
             else if ((smalldiff == true) && (diff != '') && (Math.abs(diff) < 10)) {

@@ -74,6 +74,7 @@ $(function() {
     $('#menu-export').button();
     $('#menu-help').button();
     $('#menu-hide-specialk').checkboxradio();
+    $('#menu-hide-zerodiff').checkboxradio();
     $('#menu-hide-smalldiff').checkboxradio();
     setFirstRun();
     /*
@@ -108,7 +109,18 @@ $(function() {
     $('#menu-hide-specialk').click(function() {
         showhideRows();
     });
+    $('#menu-hide-zerodiff').click(function() {
+        //also uncheck smalldiff if zerodiff is unchecked
+        if ($('#menu-hide-zerodiff').prop('checked') == false) {
+            $('#menu-hide-smalldiff').prop('checked', false).button('refresh');
+        }
+        showhideRows();
+    });
     $('#menu-hide-smalldiff').click(function() {
+        //also check zerodiff if smalldiff is checked
+        if ($('#menu-hide-smalldiff').prop('checked') == true) {
+            $('#menu-hide-zerodiff').prop('checked', true).button('refresh');
+        }
         showhideRows();
     });
     /*

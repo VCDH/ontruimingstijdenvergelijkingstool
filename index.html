@@ -61,6 +61,8 @@
     <div id="submenu">
         <input type="checkbox" name="menu-hide-specialk" id="menu-hide-specialk">
         <label for="menu-hide-specialk">Verberg NK/FK/GK/GKL</label>
+        <input type="checkbox" name="menu-hide-zerodiff" id="menu-hide-zerodiff">
+        <label for="menu-hide-zerodiff">Verberg 0-verschillen</label>
         <input type="checkbox" name="menu-hide-smalldiff" id="menu-hide-smalldiff">
         <label for="menu-hide-smalldiff">Verberg kleine verschillen</label>
     </div>
@@ -105,9 +107,11 @@
         </dl>
         <dl>
             <dt>Verberg NK/FK/GK/GKL</dt>
-            <dd>Verberg rijen met waarden -1/-2/-3/-4. Rijen worden alleen verborgen als zowel de huidige en nieuwe waarde gelijk zijn aan -1, -2, -3, -4 of geen waarde</dd>
+            <dd>Verberg rijen met waarden -1/-2/-3/-4. Rijen worden alleen verborgen als zowel de huidige en nieuwe waarde gelijk zijn aan -1, -2, -3, -4 of geen waarde hebben.</dd>
+            <dt>Verberg 0-verschillen</dt>
+            <dd>Verberg rijen waarbij het verschil tussen de huidige en nieuwe waarde gelijk is aan 0.</dd>
             <dt>Verberg kleine verschillen</dt>
-            <dd>Verberg rijen waarbij het absolute verschil tussen de huidige en nieuwe waarde kleiner is dan 10te.</dd>
+            <dd>Verberg rijen waarbij het absolute verschil tussen de huidige en nieuwe waarde kleiner is dan 10te. Ook 0-verschillen worden verborgen wanneer deze optie wordt gekozen.</dd>
         </dl>
 
         <h1>Opmerkingen invoeren</h1>
