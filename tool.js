@@ -40,7 +40,7 @@ function read_file(variant, file) {
     let type;
     let regex = [
         /(TO|TIG) ([0-9]+) ([0-9]+): (-?\d+)(\/te)?\s?/,
-        /(TOR|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);/
+        /(TO|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);/
     ];
     //TO 01 37: -3              TO 01 38: 30/te           TO 02 05: 10/te
         //example result:
