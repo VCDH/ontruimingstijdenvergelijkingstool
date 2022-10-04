@@ -35,7 +35,7 @@ newTable();
 
 function read_file(variant, file) { 
     //zoek type pdump/ccol op basis van bestandsinhoud
-    let filetype;
+    let filetype = null;
     let filetype_named;
     let type;
     let regex = [
@@ -90,6 +90,11 @@ function read_file(variant, file) {
             type = match[1];
         }
     });
+    //waarschuwing bij ongeldig bestand
+    if (filetype == null) {
+        alert('Kan bestand niet inlezen. Bestandstype is niet herkend.');
+        return;
+    }
     //waarschuwing bij inlezen tab.c voor oude waarden
     if ((filetype == 1) && (variant == 'old')) {
         alert('Je hebt mogelijk een tab.c ingelezen in plaats van een pdump. Lees bij voorkeur een pdump van de straatapplicatie in of controleer of de waarden overeen komen met de actuele ontruimingstijdens op straat.');
