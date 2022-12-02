@@ -76,6 +76,7 @@ $(function() {
     $('#menu-hide-specialk').checkboxradio();
     $('#menu-hide-zerodiff').checkboxradio();
     $('#menu-hide-smalldiff').checkboxradio();
+    $('#menu-hide-yellow').checkboxradio();
     setFirstRun();
     /*
     * button onclick handles
@@ -122,6 +123,9 @@ $(function() {
             $('#menu-hide-zerodiff').prop('checked', true).button('refresh');
         }
         showhideRows();
+    });
+    $('#menu-hide-yellow').click(function() {
+        toHtmlTable();
     });
     /*
     * meta onchange handlers

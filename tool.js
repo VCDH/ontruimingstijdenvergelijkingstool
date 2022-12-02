@@ -223,6 +223,11 @@ function read_file(variant, file) {
 function toHtmlTable() {
     //maak tabel leeg
     $('#outputtable tbody').html('');
+    //check of geeltijden moeten zijn opgenomen
+    var yellow = true;
+    if ($('#menu-hide-yellow').prop('checked') == true) {
+        yellow = false;
+    }
     //schrijf rijen
     for (let row of table.t) {
         //bepaal kleur klasse voor verschil
@@ -235,8 +240,42 @@ function toHtmlTable() {
                 tdclass = 'diff-10';
             }
         }
+        //trek voor weergave geeltijden af op basis van setting #menu-hide-yellow
+        //bepaal old en new
+        var val_old = row.old;
+        var val_new = row.new;
+        //doe alleen iets als setting is gekozen
+        if ($('#menu-hide-yellow').prop('checked') == true) {
+            //oude waarde
+            if ((typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG') && (typeof row.old !== 'undefined') && (row.old >= 0)) {
+                //zoek geeltijd op
+                let tgl = 0;
+                for (let r of table.g) {
+                    if ((r.fc == row.fca)) {
+                        tgl = r.old;
+                        break;
+                    }
+                };
+                //bereken verschil
+                val_old = row.old - tgl;
+            }
+            //nieuwe waarde
+            if ((typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG') && (typeof row.new !== 'undefined') && (row.new >= 0)) {
+                //zoek geeltijd op
+                let tgl = 0;
+                for (let r of table.g) {
+                    if ((r.fc == row.fca)) {
+                        tgl = r.new;
+                        break;
+                    }
+                };
+                //bereken verschil
+                val_new = row.new - tgl;
+            }
+        }
+
         //schrijf rij
-        $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td contenteditable>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td contenteditable tabindex="10000">' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
+        $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof val_old !== 'undefined') ? val_old : '') + '</td><td>' + ((typeof val_new !== 'undefined') ? val_new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td contenteditable>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td contenteditable tabindex="10000">' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
         showhideRows();
     };
 }
