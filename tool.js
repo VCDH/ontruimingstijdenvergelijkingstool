@@ -247,7 +247,7 @@ function toHtmlTable() {
         //doe alleen iets als setting is gekozen
         if ($('#menu-hide-yellow').prop('checked') == true) {
             //oude waarde
-            if ((typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG') && (typeof row.old !== 'undefined') && (row.old >= 0)) {
+            if ((typeof table.m.old !== 'undefined') && (typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG') && (typeof row.old !== 'undefined') && (row.old >= 0)) {
                 //zoek geeltijd op
                 let tgl = 0;
                 for (let r of table.g) {
@@ -260,7 +260,7 @@ function toHtmlTable() {
                 val_old = row.old - tgl;
             }
             //nieuwe waarde
-            if ((typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG') && (typeof row.new !== 'undefined') && (row.new >= 0)) {
+            if ((typeof table.m.new !== 'undefined') && (typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG') && (typeof row.new !== 'undefined') && (row.new >= 0)) {
                 //zoek geeltijd op
                 let tgl = 0;
                 for (let r of table.g) {
@@ -279,13 +279,16 @@ function toHtmlTable() {
     };
 
     //geeltijdentabel
-    $('#yellowtable tbody').html('');
-    //schrijf rijen
-    for (let row of table.g) {
-        //schrijf rij
-        $('#yellowtable tbody').append('<tr><td>' + ((typeof row.fc !== 'undefined') ? row.fc : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td></tr>');
-        
-    };
+    if (typeof table.g !== 'undefined') {
+        $('#yellowtable tbody').html('');
+        //schrijf rijen
+        for (let row of table.g) {
+            //schrijf rij
+            $('#yellowtable tbody').append('<tr><td>' + ((typeof row.fc !== 'undefined') ? row.fc : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td></tr>');
+            
+        };
+        $('#output').tabs('enable', 1);
+    }
 
     showhideRows();
 }

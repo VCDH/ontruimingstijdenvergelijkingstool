@@ -82,7 +82,6 @@ $(function() {
     $('#menu-hide-zerodiff').checkboxradio();
     $('#menu-hide-smalldiff').checkboxradio();
     $('#menu-hide-yellow').checkboxradio();
-    setFirstRun();
     /*
     * button onclick handles
     */
@@ -138,6 +137,10 @@ $(function() {
     $('#meta').on('change', 'input', function() {
         saveMetaToTable();
     });
+    /*
+    * init tool and load backup
+    */
+    setFirstRun();
     //hide loading screen
     setLoadingScreen(null);
 });

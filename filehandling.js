@@ -28,7 +28,15 @@ function setFirstRun(state = true) {
     $('#menu-import-new').button('option', 'disabled', state);
     $('#menu-saveas').button('option', 'disabled', state);
     if (state == true) {
+        $('#output').tabs('option', 'collapsible', true);
+        $('#output').tabs('option', 'active', false);
+        $('#output').tabs('option', 'disabled', true);
         readBackup();
+    }
+    else {
+        $('#output').tabs('enable', 0);
+        $('#output').tabs('option', 'active', 0);
+        $('#output').tabs('option', 'collapsible', false);
     }
     firstrun = state;
     /*
