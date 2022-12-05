@@ -14,19 +14,19 @@ textarea {
     margin-top: 1em;
 }
 
-#outputtable {
+#outputtable, #yellowtable {
     border-collapse: collapse;
-    margin: 4px auto;
+    margin: 1em auto;
     
 }
-#outputtable thead th {
+#outputtable thead th, #yellowtable thead th {
     border: 1px solid #CCC;
     border-top: none;
     padding: 0 2px;
     font-weight: bold;
     text-align: left;
 }
-#outputtable tbody td {
+#outputtable tbody td, #yellowtable tbody td {
     border: 1px solid #CCC;
     padding: 0 2px;
 }
@@ -80,4 +80,8 @@ td.diff-10 {
 
 dt {
     font-weight: bold;
+}
+
+.ui-button {
+    margin-top: 0;
 }

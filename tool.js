@@ -276,8 +276,18 @@ function toHtmlTable() {
 
         //schrijf rij
         $('#outputtable tbody').append('<tr><td>' + ((typeof row.fca !== 'undefined') ? row.fca : '') + '</td><td>' + ((typeof row.fcb !== 'undefined') ? row.fcb : '') + '</td><td>' + ((typeof val_old !== 'undefined') ? val_old : '') + '</td><td>' + ((typeof val_new !== 'undefined') ? val_new : '') + '</td><td' + ((tdclass !== null) ? ' class="' + tdclass + '"' : '') + '>' + ((typeof row.diff !== 'undefined') ? row.diff : '') + '</td><td contenteditable>' + ((typeof row.comment_creator !== 'undefined') ? row.comment_creator : '') + '</td><td contenteditable tabindex="10000">' + ((typeof row.comment_reviewer !== 'undefined') ? row.comment_reviewer : '') + '</td></tr>');
-        showhideRows();
     };
+
+    //geeltijdentabel
+    $('#yellowtable tbody').html('');
+    //schrijf rijen
+    for (let row of table.g) {
+        //schrijf rij
+        $('#yellowtable tbody').append('<tr><td>' + ((typeof row.fc !== 'undefined') ? row.fc : '') + '</td><td>' + ((typeof row.old !== 'undefined') ? row.old : '') + '</td><td>' + ((typeof row.new !== 'undefined') ? row.new : '') + '</td></tr>');
+        
+    };
+
+    showhideRows();
 }
 
 /*

@@ -64,6 +64,10 @@ $(function() {
         }
     });
     /*
+    * init tabs
+    */
+    $('#output').tabs();
+    /*
     * init buttons
     */
     $('#menu-new').button();

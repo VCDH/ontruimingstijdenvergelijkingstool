@@ -58,25 +58,48 @@
         </fieldset>
     </div>
 
-    <div id="submenu">
-        <input type="checkbox" name="menu-hide-specialk" id="menu-hide-specialk">
-        <label for="menu-hide-specialk">Verberg NK/FK/GK/GKL</label>
-        <input type="checkbox" name="menu-hide-zerodiff" id="menu-hide-zerodiff">
-        <label for="menu-hide-zerodiff">Verberg 0-verschillen</label>
-        <input type="checkbox" name="menu-hide-smalldiff" id="menu-hide-smalldiff">
-        <label for="menu-hide-smalldiff">Verberg kleine verschillen</label>
-    </div>
-
     <div id="output">
-        <table id="outputtable">
-            <thead>
-                <tr>
-                    <th>FC van</th><th>FC naar</th><th>Huidige waarde</th><th>Nieuwe waarde</th><th>Verschil</th><th>Opmerking opsteller</th><th>Opmerking controleur</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <ul>
+            <li><a href="#tabs-1">Ontruimingstijden</a></li>
+            <li><a href="#tabs-2">Geeltijden</a></li>
+        </ul>
+        <div id="tabs-1">
+
+            <div id="submenu">
+                <input type="checkbox" name="menu-hide-specialk" id="menu-hide-specialk">
+                <label for="menu-hide-specialk">Verberg NK/FK/GK/GKL</label>
+                <input type="checkbox" name="menu-hide-zerodiff" id="menu-hide-zerodiff">
+                <label for="menu-hide-zerodiff">Verberg 0-verschillen</label>
+                <input type="checkbox" name="menu-hide-smalldiff" id="menu-hide-smalldiff">
+                <label for="menu-hide-smalldiff">Verberg kleine verschillen</label>
+                <input type="checkbox" name="menu-hide-yellow" id="menu-hide-yellow">
+                <label for="menu-hide-yellow">Toon TIG exclusief geeltijden</label>
+            </div>
+
+            <table id="outputtable">
+                <thead>
+                    <tr>
+                        <th>FC van</th><th>FC naar</th><th>Huidige waarde</th><th>Nieuwe waarde</th><th>Verschil</th><th>Opmerking opsteller</th><th>Opmerking controleur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+        <div id="tabs-2">
+
+            <table id="yellowtable">
+                <thead>
+                    <tr>
+                        <th>FC</th><th>Huidig</th><th>Nieuw</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
     <div id="loadingscreencontainer">
@@ -136,6 +159,6 @@
     <script src="gui.js"></script>
     <script src="filehandling.js"></script>
     <script src="tool.js"></script>
-    <p>ontruimingstijdenvergelijkingstool v0.4 | <a href="https://github.com/VCDH/ontruimingstijdenvergelijkingstool/">Broncode op GitHub</a></p>
+    <p>ontruimingstijdenvergelijkingstool | <a href="https://github.com/VCDH/ontruimingstijdenvergelijkingstool/">Broncode op GitHub</a></p>
 </body>
 </html>
