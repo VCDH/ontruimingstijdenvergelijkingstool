@@ -44,6 +44,7 @@ $(function() {
             }
         ],
         modal: true,
+        position: { my: "center top", at: "center top", of: window },
         width: 800
     });
     $('#helpdialog').dialog({
@@ -145,20 +146,37 @@ $(function() {
 * handle import dialog
 */
 function openImportDialog(type) {
+    //clear file name
+    $('#file').val('');
+    //clear input
     document.getElementById('input').value = '';
     active_type = type;
     var title;
+    var desc;
+    var show_textarea = true;
     if (type == 'open') {
         title = 'Open opgeslagen json bestand';
+        desc = 'Open een opgeslagen bestand dat is gemaakt door ontruimingstijdenvergelijkingstool.';
+        show_textarea = false;
     }
     else if (type == 'old') {
         title = 'Importeer huidig pdump bestand';
+        desc = 'Importeer bestaande ontruimingstijden voor de huidige situatie op straat. Plak de inhoud van een pdump in onderstaand tekstvak of selecteer een bestand met pdump vanaf schijf. Als er geen pdump voorhanden is, kan ook een bestand in CCOL formaat worden ingelezen. Controleer of de ingelezen ontruimingstijden overeen komen met de ontruimingstijden op straat.';
     }
     else if (type == 'new') {
-        title = 'Importeer nieuw ccol bestand';
+        title = 'Importeer nieuw OTTO bestand';
+        desc = 'Importeer berekende ontruimingstijden voor de nieuwe situatie. Gebruik in OTTO de optie om te exporteren als CCOL-bestand.';
+        show_textarea = false;
     }
     $('#fileinputdialog').dialog('option', 'title', title);
+    $('#fileinputdialog_desc').html(desc);
     $('#fileinputdialog').dialog('open');
+    if (show_textarea == true) {
+        $('#fileinputdialog textarea').show();
+    }
+    else {
+        $('#fileinputdialog textarea').hide();
+    }
 }
 
  /*
