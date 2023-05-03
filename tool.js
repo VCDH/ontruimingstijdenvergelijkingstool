@@ -40,8 +40,9 @@ function read_file(variant, file) {
     let type;
     let regex = [
         /(TO|TIG) ([0-9]+) ([0-9]+): (-?\d+)(\/te)?\s?/,
-        /(TO|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);/
+        /(TO|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);( = deelconflict)?/
     ];
+    
     //TO 01 37: -3              TO 01 38: 30/te           TO 02 05: 10/te
         //example result:
         //0: "TO 01 38: 30/te\n"
@@ -50,6 +51,8 @@ function read_file(variant, file) {
         //​3: "38"
         //​​4: "30"
         //5: "/te"
+    //  (TO|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);                          <= match alle regels
+    //  /(?:(?<!\/\*\s*))(TO|TIG)_max\[fc([0-9]+)\]\[fc([0-9]+)\]\s*=\s*(-?\d+);/        <= uitgecommente regel niet matchen  
     //TIG_max[fc01][fc38]= 91;
         //example result:
         //0: "TIG_max[fc01][fc38]= 91;"
@@ -57,6 +60,7 @@ function read_file(variant, file) {
         //​2: "01"
         //​​3: "38"
         //4: "91"
+        //5: " = deelconflict" //optioneel
     regex.forEach((matchstr, index) => {
         let match;
         if (match =file.match(matchstr)) {
@@ -196,7 +200,8 @@ function read_file(variant, file) {
                 //id: table.t.length,
                 fca: item[2],
                 fcb: item[3],
-                [variant]: parseInt(item[4])
+                [variant]: parseInt(item[4]),
+                ...((typeof item[5] !== 'undefined') && (item[5] == ' = deelconflict')) && {comment_creator: 'deelconflict'}
             });
             //bij een nieuwe rij kunnen er nooit zowel een oude als nieuwe waarde zijn, dus hoeft geen verschil berekend te worden
         }
