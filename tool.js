@@ -168,19 +168,21 @@ function read_file(variant, file) {
                     //trek geeltijden af voor intergroen
                     let tgl_old = 0;
                     let tgl_new = 0;
-                    for (let r of table.g) {
-                        if ((r.fc == row.fca)) {
-                            //oude waarde
-                            if ((typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG')) {
-                                tgl_old = r.old;
+                    if (typeof table.g !== 'undefined') {
+                        for (let r of table.g) {
+                            if ((r.fc == row.fca)) {
+                                //oude waarde
+                                if ((typeof table.m.old.type !== 'undefined') && (table.m.old.type == 'TIG')) {
+                                    tgl_old = r.old;
+                                }
+                                //nieuwe waarde
+                                if ((typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG')) {
+                                    tgl_new = r.new;
+                                }
+                                break;
                             }
-                            //nieuwe waarde
-                            if ((typeof table.m.new.type !== 'undefined') && (table.m.new.type == 'TIG')) {
-                                tgl_new = r.new;
-                            }
-                            break;
-                        }
-                    };
+                        };
+                    }
                     //bereken verschil
                     row.diff = (row.new - tgl_new) - (row.old - tgl_old);
                 }
