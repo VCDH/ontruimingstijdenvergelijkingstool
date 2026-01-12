@@ -433,7 +433,9 @@ $(function() {
                 'was constante snelheid ipv versnelling'
             ]
         }).on('focus', function () {
+            if ($(this).html().length == 0) {
             $(this).autocomplete('search', '');
+            }
         });
     });
     $('#outputtable tbody').on('focus', 'td:nth-child(7)', function() {
@@ -445,7 +447,9 @@ $(function() {
                 'redenering onjuist: '
             ]
         }).on('focus', function () {
+            if ($(this).html().length == 0) {
             $(this).autocomplete('search', '');
+            }
         });
     });
 });
